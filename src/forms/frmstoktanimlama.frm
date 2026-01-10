@@ -28,6 +28,22 @@ Function UCaseTR(ByVal txt As String) As String
     ' En son geri kalan standart Ýngilizce karakterleri büyütüyoruz
     UCaseTR = UCase(result)
 End Function
+Function LCaseTR(ByVal txt As String) As String
+    Dim result As String
+    result = txt
+    
+    ' Önce büyük Türkçe karakterleri tek tek küçük halleriyle deðiþtiriyoruz
+    result = Replace(result, "Ý", "i")
+    result = Replace(result, "I", "ý")
+    result = Replace(result, "Ç", "ç")
+    result = Replace(result, "Þ", "þ")
+    result = Replace(result, "Ö", "ö")
+    result = Replace(result, "Ü", "ü")
+    result = Replace(result, "Ð", "ð")
+    
+    ' En son geri kalan standart Ýngilizce karakterleri küçültüyoruz
+    LCaseTR = LCase(result)
+End Function
 
 Private Sub Frame1_Click()
 

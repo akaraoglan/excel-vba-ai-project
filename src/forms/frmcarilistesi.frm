@@ -1,18 +1,19 @@
 VERSION 5.00
-Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmstoklistesi 
-   Caption         =   "Stok Listesi"
+Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmcarilistesi 
+   Caption         =   "Cari Listesi"
    ClientHeight    =   9900.001
    ClientLeft      =   120
    ClientTop       =   465
    ClientWidth     =   15855
-   OleObjectBlob   =   "frmstoklistesi.frx":0000
+   OleObjectBlob   =   "frmcarilistesi.frx":0000
    StartUpPosition =   1  'CenterOwner
 End
-Attribute VB_Name = "frmstoklistesi"
+Attribute VB_Name = "frmcarilistesi"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Function UCaseTR(ByVal txt As String) As String
     Dim result As String
     result = txt
@@ -46,6 +47,10 @@ Function LCaseTR(ByVal txt As String) As String
     LCaseTR = LCase(result)
 End Function
 
+
+
+
+
 Private Sub Frame1_Click()
 
 End Sub
@@ -57,29 +62,30 @@ End Sub
 'Kapat týklandýðýnda Userformu kapatýr.
 Private Sub btnkapat_Click()
 Unload Me
+frmAnaForm.Show
 End Sub
 'Form yüklendiðinde listeyi getirir.
 Private Sub UserForm_Initialize()
 
-StoklariListele
+CariListele
 
 End Sub
 
-' Stok sayfasýndaki deðerleri listboxa getiriyoruz. Burada yaptýðýmýz iþlem stok sayfasýndaki deðerleri TMP isimli gizli sayfaya yazýyoruz ve oradan çekiyoruz. Bu sayede listboxa
+' Cari sayfasýndaki deðerleri listboxa getiriyoruz. Burada yaptýðýmýz iþlem cari sayfasýndaki deðerleri TMP isimli gizli sayfaya yazýyoruz ve oradan çekiyoruz. Bu sayede listboxa
 ' parçalý bir þekilde dilediðimiz sütunu getirebiliriz
-Sub StoklariListele()
+Sub CariListele()
 
     Dim ws As Worksheet, tmp As Worksheet
     Dim sonSatir As Long
     Dim i As Long
 
-    Set ws = ThisWorkbook.Sheets("Stok")
+    Set ws = ThisWorkbook.Sheets("Cari")
     Set tmp = ThisWorkbook.Sheets("TMP")
 
     tmp.Cells.Clear
 
     ' Baþlýklar
-    tmp.Range("A1:F1").Value = Array("Stok Kodu", "Açýklama", "Birimi", "Alýþ Fiyatý", "Satýþ Fiyatý", "KDV")
+    tmp.Range("A1:G1").Value = Array("CARÝ KODU", "ADI ÜNVANI", "VERGÝ DAÝRESÝ", "VERGÝ NUMARASI", "TELEFONU", "EMAÝL", "ADRESÝ")
 
     sonSatir = ws.Cells(ws.Rows.Count, "A").End(xlUp).Row
     If sonSatir < 2 Then Exit Sub
@@ -91,16 +97,17 @@ Sub StoklariListele()
         tmp.Cells(i, 3).Value = ws.Cells(i, "C").Value
         tmp.Cells(i, 4).Value = ws.Cells(i, "D").Value
         tmp.Cells(i, 5).Value = ws.Cells(i, "E").Value
-        tmp.Cells(i, 6).Value = ws.Cells(i, "I").Value
+        tmp.Cells(i, 6).Value = ws.Cells(i, "F").Value
+        tmp.Cells(i, 7).Value = ws.Cells(i, "G").Value
     Next i
 
     ' ListBox
-    With lststoklar
+    With lstcariler
         .Clear
-        .ColumnCount = 6
-        .ColumnWidths = "100;300;80;100;100;100"
+        .ColumnCount = 7
+        .ColumnWidths = "100;300;80;100;100;100;100"
         .ColumnHeads = True
-        .RowSource = "TMP!A2:F" & sonSatir
+        .RowSource = "TMP!A2:G" & sonSatir
     End With
 
     ' Ýstersen TMP'yi gizle
@@ -134,21 +141,22 @@ Private Sub ComboSec1(cb As MSForms.ComboBox, deger As String)
 End Sub
 
 'Listboxumuzdaki deðere çift týklandýðýnda deðerleri getiriyoruz.
-Private Sub lstStoklar_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
+Private Sub lstcariler_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
 
-    If lststoklar.ListIndex = -1 Then Exit Sub
+    If lstcariler.ListIndex = -1 Then Exit Sub
 
-    With frmstoktanimlama
-        .txtstokkodu.Value = lststoklar.List(lststoklar.ListIndex, 0)
-        .txtaciklama.Value = lststoklar.List(lststoklar.ListIndex, 1)
-        .txtalis.Value = lststoklar.List(lststoklar.ListIndex, 3)
-        .txtsatis.Value = lststoklar.List(lststoklar.ListIndex, 4)
+    With frmcaritanimlama
+        .txtcarikodu.Value = lstcariler.List(lstcariler.ListIndex, 0)
+        .txtadunvan.Value = lstcariler.List(lstcariler.ListIndex, 1)
+        .txtvergidairesi.Value = lstcariler.List(lstcariler.ListIndex, 2)
+        .txtvergino.Value = lstcariler.List(lstcariler.ListIndex, 3)
+        .txttelefon.Value = lstcariler.List(lstcariler.ListIndex, 4)
+        .txtemail.Value = lstcariler.List(lstcariler.ListIndex, 5)
+        .txtadres.Value = lstcariler.List(lstcariler.ListIndex, 6)
+          
 
-        ' ?? ÖNEMLÝ KISIM
-        ComboSec .cbbirim, lststoklar.List(lststoklar.ListIndex, 2)
-        ComboSec .cbkdv, lststoklar.List(lststoklar.ListIndex, 5)
-        frmstoktanimlama.lblislem.Caption = "Düzeltme"
-        frmstoktanimlama.btnkaydet.Caption = "Güncelle" 'Listboxtaki deðere çift týklandýðýnda Kaydet butonunun ismini güncelle yapar.
+        frmcaritanimlama.lblislem.Caption = "Düzeltme"
+        frmcaritanimlama.btnkaydet.Caption = "Güncelle" 'Listboxtaki deðere çift týklandýðýnda Kaydet butonunun ismini güncelle yapar.
 
         .Show
     End With
@@ -156,8 +164,8 @@ Private Sub lstStoklar_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
 End Sub
 
 Private Sub btnekle_Click()
-frmstoktanimlama.lblislem.Caption = "Yeni" 'Eðer frmstoktanimlama sayfasýndaki label deðeri yeni ise fmrstoktanimlama isimli formu açar.
-frmstoktanimlama.Show
+frmcaritanimlama.lblislem.Caption = "Yeni" 'Eðer frmcaritanimlama sayfasýndaki label deðeri yeni ise fmrcaritanimlama isimli formu açar.
+frmcaritanimlama.Show
 End Sub
 
 

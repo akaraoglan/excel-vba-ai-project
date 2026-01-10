@@ -13,6 +13,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub btncariislemler_Click()
+
+Unload Me
+frmcarilistesi.Show
+End Sub
+
+
 'Çarpý Ýþaretini Ýþlevsiz Hale Getirme
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
 If CloseMode = vbFormControlMenu Then Cancel = True
