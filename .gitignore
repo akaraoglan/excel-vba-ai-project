@@ -1,0 +1,5 @@
+*.frx
+*.tmp
+*.log
+*.bak
+~$*.xls*
