@@ -13,6 +13,27 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Function UCaseTR(ByVal txt As String) As String
+    Dim result As String
+    result = txt
+    
+    ' Önce küçük Türkçe karakterleri tek tek büyük halleriyle deðiþtiriyoruz
+    result = Replace(result, "i", "Ý")
+    result = Replace(result, "ý", "I")
+    result = Replace(result, "ç", "Ç")
+    result = Replace(result, "þ", "Þ")
+    result = Replace(result, "ö", "Ö")
+    result = Replace(result, "ü", "Ü")
+    result = Replace(result, "ð", "Ð")
+    
+    ' En son geri kalan standart Ýngilizce karakterleri büyütüyoruz
+    UCaseTR = UCase(result)
+End Function
+
+Private Sub Frame1_Click()
+
+End Sub
+
 'Çarpý Ýþaretini Ýþlevsiz Hale Getirme
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
 If CloseMode = vbFormControlMenu Then Cancel = True
@@ -72,12 +93,12 @@ Sub StoklariListele()
 End Sub
 
 'Listboxa çift týklandýðýnda deðiþiklik yapmak için önce textboxlarý ve comboboxlarý getiriyoruz. Comboboxlarýmýz eðer içine deðer yazýlamayacak þekilde ise gelmesi için önce bu
-'fonksiyonu aktif hale getiriyoruz. Ayrýca eðer comboboxlarýmýz UCASE fonksiyonu (Büyük harfe çevirme) içeriyorsa doðru gelmesi için ayarlanmýþtýr.
+'fonksiyonu aktif hale getiriyoruz. Ayrýca eðer comboboxlarýmýz ucasetr fonksiyonu (Büyük harfe çevirme) içeriyorsa doðru gelmesi için ayarlanmýþtýr.
 Private Sub ComboSec(cb As MSForms.ComboBox, deger As String)
     Dim i As Integer
     For i = 0 To cb.ListCount - 1
-        ' UCase kullanarak her iki tarafý da büyük harfe çevirip karþýlaþtýrýn
-        If UCase(Trim(cb.List(i))) = UCase(Trim(deger)) Then
+        ' ucasetr kullanarak her iki tarafý da büyük harfe çevirip karþýlaþtýrýn
+        If UCaseTR(Trim(cb.List(i))) = UCaseTR(Trim(deger)) Then
             cb.ListIndex = i
             Exit Sub
         End If

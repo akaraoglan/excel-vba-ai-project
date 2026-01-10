@@ -12,7 +12,26 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Function UCaseTR(ByVal txt As String) As String
+    Dim result As String
+    result = txt
+    
+    ' Önce küçük Türkçe karakterleri tek tek büyük halleriyle deðiþtiriyoruz
+    result = Replace(result, "i", "Ý")
+    result = Replace(result, "ý", "I")
+    result = Replace(result, "ç", "Ç")
+    result = Replace(result, "þ", "Þ")
+    result = Replace(result, "ö", "Ö")
+    result = Replace(result, "ü", "Ü")
+    result = Replace(result, "ð", "Ð")
+    
+    ' En son geri kalan standart Ýngilizce karakterleri büyütüyoruz
+    UCaseTR = UCase(result)
+End Function
 
+Private Sub Frame1_Click()
+
+End Sub
 
 'Bu userformu ana formun tam ortasýna sabitler ve gerekli ayarlamalar yapýlýr.
 Private Sub UserForm_Initialize()
@@ -68,10 +87,10 @@ If sor = vbNo Then Exit Sub
 X = Sheets("Stok").Cells(Rows.Count, "A").End(xlUp).Row + 1
 
 With Sheets("Stok")
-    .Range("A" & X).Value = UCase(txtstokkodu.Value)
-    .Range("B" & X).Value = UCase(txtaciklama.Value)
-    .Range("C" & X).Value = UCase(cbbirim.Value)
-    .Range("D" & X).Value = txtalis.Value 'Fiyatlarda UCase kullanmaya gerek yok
+    .Range("A" & X).Value = UCaseTR(txtstokkodu.Value)
+    .Range("B" & X).Value = UCaseTR(txtaciklama.Value)
+    .Range("C" & X).Value = UCaseTR(cbbirim.Value)
+    .Range("D" & X).Value = txtalis.Value 'Fiyatlarda ucasetr kullanmaya gerek yok
     .Range("E" & X).Value = txtsatis.Value
     .Range("I" & X).Value = cbkdv.Value
     
@@ -108,9 +127,9 @@ If lblislem.Caption = "Düzeltme" Then 'Hocanýn yazdýðý gibi büyük/küçük harfe di
 
     '--- GÜNCELLEME ÝÞLEMÝ ---
     With Sheets("Stok")
-        .Range("A" & X).Value = UCase(txtstokkodu.Value)
-        .Range("B" & X).Value = UCase(txtaciklama.Value)
-        .Range("C" & X).Value = UCase(cbbirim.Value)
+        .Range("A" & X).Value = UCaseTR(txtstokkodu.Value)
+        .Range("B" & X).Value = UCaseTR(txtaciklama.Value)
+        .Range("C" & X).Value = UCaseTR(cbbirim.Value)
         .Range("D" & X).Value = txtalis.Value
         .Range("E" & X).Value = txtsatis.Value
         .Range("I" & X).Value = cbkdv.Value
