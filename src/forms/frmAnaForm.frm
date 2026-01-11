@@ -14,11 +14,17 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Private Sub btncariislemler_Click()
-
-Unload Me
-frmcarilistesi.Show
+frmcarimenu.Show
 End Sub
 
+
+Private Sub btnfatura_Click()
+frmfaturamenu.Show
+End Sub
+
+Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal X As Single, ByVal Y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
+
+End Sub
 
 'Çarpý Ýþaretini Ýþlevsiz Hale Getirme
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)

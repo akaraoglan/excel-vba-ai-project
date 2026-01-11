@@ -49,6 +49,10 @@ Private Sub Frame1_Click()
 
 End Sub
 
+Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal X As Single, ByVal Y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
+
+End Sub
+
 'Bu userformu ana formun tam ortasýna sabitler ve gerekli ayarlamalar yapýlýr.
 Private Sub UserForm_Initialize()
     ' Yatayda (Soldan saða) ortalamak için:

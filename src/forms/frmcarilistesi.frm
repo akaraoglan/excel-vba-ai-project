@@ -62,7 +62,7 @@ End Sub
 'Kapat týklandýðýnda Userformu kapatýr.
 Private Sub btnkapat_Click()
 Unload Me
-frmAnaForm.Show
+
 End Sub
 'Form yüklendiðinde listeyi getirir.
 Private Sub UserForm_Initialize()

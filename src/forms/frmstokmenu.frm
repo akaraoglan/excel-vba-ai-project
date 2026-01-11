@@ -12,9 +12,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub Image1_BeforeDragOver(ByVal Cancel As MSForms.ReturnBoolean, ByVal Data As MSForms.DataObject, ByVal X As Single, ByVal Y As Single, ByVal DragState As MSForms.fmDragState, ByVal Effect As MSForms.ReturnEffect, ByVal Shift As Integer)
+
+End Sub
+
 'Bu userformu sola formun soluna sabitler ve 82 birim aþaðýya getirir.
 Private Sub UserForm_Initialize()
-Me.Left = frmAnaForm.Left
+Me.Left = frmAnaForm.Left + 127
 Me.Top = frmAnaForm.Top + 82
 
 End Sub
