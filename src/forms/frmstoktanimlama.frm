@@ -79,6 +79,18 @@ If txtstokkodu.Value = "" Or txtaciklama.Value = "" Or cbbirim.Value = "" Or cbk
     Exit Sub
 End If
 
+' SADECE YENÝ KAYITTA mükerrer kontrolü
+If lblislem.Caption = "Yeni" Then
+    If Application.WorksheetFunction.CountIf( _
+            Sheets("Stok").Range("A:A"), UCaseTR(txtstokkodu.Value)) > 0 Then
+
+        MsgBox "Bu stok kodu zaten mevcut!", vbCritical
+        txtstokkodu.SetFocus
+        Exit Sub
+    End If
+End If
+
+
 '--- 2. SAYISAL KONTROL (Eðer doluysa sayý mý?) ---
 'Alýþ fiyatý doluysa ve sayý deðilse hata ver
 If txtalis.Value <> "" And Not IsNumeric(txtalis.Value) Then

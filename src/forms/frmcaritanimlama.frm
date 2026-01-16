@@ -88,6 +88,18 @@ If txtcarikodu.Value = "" Or txtadunvan.Value = "" Or txttelefon.Value = "" Or t
     Exit Sub
 End If
 
+' SADECE YENÝ KAYITTA mükerrer kontrolü
+If lblislem.Caption = "Yeni" Then
+    If Application.WorksheetFunction.CountIf( _
+            Sheets("Cari").Range("A:A"), UCaseTR(txtcarikodu.Value)) > 0 Then
+
+        MsgBox "Bu cari kodu zaten mevcut!", vbCritical
+        txtcarikodu.SetFocus
+        Exit Sub
+    End If
+End If
+
+
 '--- 2. SAYISAL KONTROL (Eðer doluysa sayý mý?) ---
 'Telefon doluysa ve sayý deðilse hata ver
 If txttelefon.Value <> "" And Not IsNumeric(txttelefon.Value) Then
